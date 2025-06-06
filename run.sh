@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Check if java is installed and the version is at least 21
+# Check if java is installed and the version is at least 23
 if ! command -v java &> /dev/null; then
-    echo "Java is not installed. Please install Java 21 or higher."
+    echo "Java is not installed. Please install Java 23 or higher."
     exit 1
 fi
 
 JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
-if [[ "${JAVA_VERSION%%.*}" -lt 21 ]]; then
-    echo "Java version is $JAVA_VERSION. Please install Java 21 or higher."
+if [[ "${JAVA_VERSION%%.*}" -lt 23 ]]; then
+    echo "Java version is $JAVA_VERSION. Please install Java 23 or higher."
     exit 1
 fi
 
@@ -29,7 +29,7 @@ fi
 if [ $# -gt 1 ]; then
   MESSAGE=$2
 else
-  MESSAGE="01 10 00 11 00 03 06 1A C4 BA D0"
+  MESSAGE="0101011100101000101011111100101"
 fi
 
 # Run the CRC calculation with the specified parameters
