@@ -9,7 +9,9 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import tech.bufallo.pw.scz.crc.CrcCalculator
+import tech.bufallo.pw.scz.util.BinaryHelper
 
+@OptIn(ExperimentalUnsignedTypes::class)
 class CrcCmd : CliktCommand(name = "crc") {
 
     private val input: String by argument("message", help = "Binary sequence (max 96 bytes, e.g. 0110 0011 1 00 ...)")
@@ -26,9 +28,11 @@ class CrcCmd : CliktCommand(name = "crc") {
         .validate { if (it <= 0 || it > 1_000_000_000) fail("Iterations must be between 1 and 10^9") }
 
     override fun run() {
+        val bytes = BinaryHelper.convertToBytes(input)
+        println("Message = %s".format(bytes.joinToString("") { it.toString(2) }))
+
         val processingIterations = iterations.toInt()
         println("Iterations = $processingIterations")
-        val bytes = convertToBytes(input)
 
         var crc = 0
         val startTime = System.nanoTime()
@@ -39,14 +43,5 @@ class CrcCmd : CliktCommand(name = "crc") {
 
         println("CRC = 0x%04X".format(crc))
         println("Time taken: %.6f seconds".format((endTime - startTime) / 1e9))
-    }
-
-    private fun convertToBytes(bits: String): ByteArray {
-        return bits.reversed()
-            .chunked(8)
-            .map { it.reversed(); }
-            .map { it.toByte(2) }
-            .reversed()
-            .toByteArray()
     }
 }
