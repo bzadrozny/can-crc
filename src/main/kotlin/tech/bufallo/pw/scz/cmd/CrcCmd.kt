@@ -10,8 +10,8 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import tech.bufallo.pw.scz.crc.CrcCalculator
 import tech.bufallo.pw.scz.util.BinaryHelper
+import tech.bufallo.pw.scz.util.BinaryHelper.convertToBinaryString
 
-@OptIn(ExperimentalUnsignedTypes::class)
 class CrcCmd : CliktCommand(name = "crc") {
 
     private val input: String by argument("message", help = "Binary sequence (max 96 bytes, e.g. 0110 0011 1 00 ...)")
@@ -29,7 +29,8 @@ class CrcCmd : CliktCommand(name = "crc") {
 
     override fun run() {
         val bytes = BinaryHelper.convertToBytes(input)
-        println("Message = %s".format(bytes.joinToString("") { it.toString(2) }))
+        println("Message = $input")
+        println("Message = ${convertToBinaryString(bytes).takeLast(input.length)}")
 
         val processingIterations = iterations.toInt()
         println("Iterations = $processingIterations")

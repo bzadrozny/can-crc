@@ -1,7 +1,8 @@
 package tech.bufallo.pw.scz.crc
 
-@OptIn(ExperimentalUnsignedTypes::class)
 object CrcCalculator {
+
+    private const val INIT_CRC_VAL = 0 and 0x7FFF
 
     // Inspired by https://github.com/cturvey/RandomNinjaChef/blob/0d3df8017ff2a50298f69225a638cb5d332361e1/STM32_CRC15_CRC_CAN.c#L98
     private val crcTable = intArrayOf(
@@ -39,8 +40,8 @@ object CrcCalculator {
         0x5368, 0x96F1, 0x9DC3, 0x585A, 0x8BA7, 0x4E3E, 0x450C, 0x8095
     )
 
-    fun calculate(bytes: UByteArray): Int {
-        var crc = 0 and 0x7FFF
+    fun calculate(bytes: ByteArray): Int {
+        var crc = INIT_CRC_VAL
 
         for (byte in bytes) {
             val data = (byte.toInt() and 0xFF) shl 7

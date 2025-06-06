@@ -1,15 +1,29 @@
 package tech.bufallo.pw.scz.util
 
-@OptIn(ExperimentalUnsignedTypes::class)
 object BinaryHelper {
 
-    fun convertToBytes(bits: String): UByteArray {
+    fun convertToBytes(bits: String): ByteArray {
         return bits.reversed()
             .chunked(8)
             .map { it.reversed(); }
-            .map { it.toUByte(2) }
+            .map { it.toUInt(2).toByte() }
             .reversed()
-            .toUByteArray()
+            .toByteArray()
     }
-    
+
+    fun convertToBinaryString(bytes: ByteArray): String {
+        return bytes.joinToString("") {
+            it.toUByte()
+                .toString(2)
+                .padStart(8, '0')
+        }
+    }
+
+    fun convertToHexString(bytes: ByteArray): String {
+        return bytes.joinToString("") {
+            it.toUByte()
+                .toString(16)
+                .padStart(2, '0')
+        }
+    }
 }
