@@ -4,13 +4,13 @@ A command-line tool for calculating CRC (Cyclic Redundancy Check) values for byt
 
 ## Features
 
-- Calculates CRC for a user-provided hex byte sequence (up to 256 bytes)
+- Calculates CRC for a user-provided bits sequence (up to 96 bytes)
 - Supports benchmarking with configurable iteration count
 - Input validation for hex notation
 
 ## Requirements
 
-- Java 21 or higher
+- Java 23 or higher
 - Gradle (for building)
 
 ## Usage
@@ -25,15 +25,15 @@ A command-line tool for calculating CRC (Cyclic Redundancy Check) values for byt
 You can use the provided run.sh script or run the JAR directly.
 
 ```shell
-./run.sh [ITERATIONS] [HEX_SEQUENCE]
+./run.sh [ITERATIONS] [BITS_SEQUENCE]
 ```
 
 - ITERATIONS (optional): Number of times to repeat the calculation (default: 1,000,000)  
-- HEX_SEQUENCE (optional): Hex bytes (default: 01 10 00 11 00 03 06 1A C4 BA D0)
+- BITS_SEQUENCE (optional): Bits (default: 0101011100101000101011111100101)
 
 Example:
 ```sh
-./run.sh 10000 "01 10 00 11 00 03 06 1A C4 BA D0"
+./run.sh 10000 "11010101"
 ```
 
 Directly via JAR
@@ -48,5 +48,5 @@ java \
   -XX:+DisableExplicitGC \
   -XX:+PerfDisableSharedMem \
   -Xbatch \
-  -jar build/libs/crc-calculator.jar crc "01 10 00 11 00 03 06 1A C4 BA D0" -i 10000
+  -jar build/libs/crc-calculator.jar crc "111100010110 001" -i 10000
 ```

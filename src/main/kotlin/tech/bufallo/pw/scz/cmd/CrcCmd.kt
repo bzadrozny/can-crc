@@ -9,7 +9,6 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import tech.bufallo.pw.scz.crc.CrcCalculator
-import tech.bufallo.pw.scz.crc.CrcTable
 
 class CrcCmd : CliktCommand(name = "crc") {
 
