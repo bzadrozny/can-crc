@@ -12,7 +12,7 @@ class CrcCalculatorTest {
         @JvmStatic
         fun crcTestCases() = listOf(
             // message, expected CRC
-            // Values confirmed with https://emn178.github.io/online-tools/crc/
+            // Values confirmed with https://emn178.github.io/online-tools/crc/ and https://ninjacalc.mbedded.ninja/calculators/software/crc-calculator
             byteArrayOf() to 0x0000,
             byteArrayOf(0b11100101.toByte()) to 0x17ae,
             byteArrayOf(0xE5.toByte()) to 0x17ae,
