@@ -42,6 +42,7 @@ class CrcCmd : CliktCommand(name = "crc") {
         val endTime = System.nanoTime()
 
         println("CRC = 0x%04X".format(crc))
-        println("Time taken: %.6f seconds".format((endTime - startTime) / 1e9))
+        println("Time taken: %.9f seconds".format((endTime - startTime) / 1e9))
+        println("Average time taken: %.9f seconds".format((endTime - startTime) / 1e9 / processingIterations))
     }
 }
