@@ -29,7 +29,6 @@ class CrcCmd : CliktCommand(name = "crc") {
 
     override fun run() {
         val bytes = BinaryHelper.convertToBytes(input)
-        println("Message = $input")
         println("Message = ${convertToBinaryString(bytes).takeLast(input.length)}")
 
         val processingIterations = iterations.toInt()
